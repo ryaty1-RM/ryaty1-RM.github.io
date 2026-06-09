@@ -6,92 +6,480 @@
   <title>Ramiro Gabriel Yat Yat | Portafolio</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; }
-    header { background: #161b22; padding: 60px 20px; text-align: center; border-bottom: 1px solid #30363d; }
-    header h1 { font-size: 2.5rem; color: #58a6ff; }
-    header p { margin-top: 10px; font-size: 1.1rem; color: #8b949e; }
-    .badges { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-    .badges img { height: 28px; }
-    section { max-width: 900px; margin: 50px auto; padding: 0 20px; }
-    section h2 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 20px; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
-    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; transition: border-color 0.2s; }
-    .card:hover { border-color: #58a6ff; }
-    .card h3 { color: #58a6ff; margin-bottom: 8px; }
-    .card p { font-size: 0.9rem; color: #8b949e; margin-bottom: 15px; }
-    .card a { display: inline-block; background: #238636; color: white; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; }
-    .card a:hover { background: #2ea043; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-    .tag { background: #21262d; border: 1px solid #30363d; border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; color: #8b949e; }
-    footer { text-align: center; padding: 40px 20px; border-top: 1px solid #30363d; color: #8b949e; font-size: 0.9rem; }
-    footer a { color: #58a6ff; text-decoration: none; }
-    .contact { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px; }
-    .contact a { color: #58a6ff; text-decoration: none; font-size: 0.95rem; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; } 50% { opacity: 0; }
+    }
+
+    body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', sans-serif; }
+
+    .topbar {
+      background: #010409;
+      border-bottom: 1px solid #21262d;
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #484f58;
+      animation: fadeUp 0.4s ease both;
+    }
+    .topbar-dots { display: flex; gap: 6px; }
+    .topbar-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .d-red { background: #f85149; }
+    .d-yellow { background: #d29922; }
+    .d-green { background: #3fb950; }
+    .topbar .path { color: #58a6ff; margin-left: 8px; }
+    .topbar .branch { margin-left: auto; color: #3fb950; }
+
+    header {
+      background: #0d1117;
+      padding: 52px 24px 44px;
+      border-bottom: 1px solid #21262d;
+      position: relative;
+      overflow: hidden;
+    }
+    .grid-bg {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(#21262d 1px, transparent 1px), linear-gradient(90deg, #21262d 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.25;
+    }
+    .scanline {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(transparent 50%, #58a6ff04 50%);
+      background-size: 100% 4px;
+      opacity: 0.4;
+    }
+    .header-content { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+
+    .terminal-line {
+      font-family: monospace;
+      font-size: 12px;
+      color: #484f58;
+      margin-bottom: 6px;
+      animation: fadeUp 0.5s ease 0.1s both;
+    }
+    .terminal-line .prompt { color: #3fb950; }
+
+    .header-content h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #e6edf3;
+      letter-spacing: -0.5px;
+      animation: fadeUp 0.5s ease 0.2s both;
+    }
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 28px;
+      background: #58a6ff;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    .role {
+      font-family: monospace;
+      font-size: 13px;
+      color: #58a6ff;
+      margin-top: 8px;
+      animation: fadeUp 0.5s ease 0.3s both;
+    }
+    .location {
+      font-family: monospace;
+      font-size: 11px;
+      color: #484f58;
+      margin-top: 4px;
+      animation: fadeUp 0.5s ease 0.35s both;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+      animation: fadeUp 0.5s ease 0.4s both;
+    }
+    .badge {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 11px;
+      color: #8b949e;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .badge:hover { border-color: #58a6ff; color: #e6edf3; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .dot-green { background: #3fb950; }
+    .dot-blue { background: #58a6ff; }
+    .dot-orange { background: #d29922; }
+    .dot-purple { background: #bc8cff; }
+    .dot-red { background: #f85149; }
+
+    .stats-bar {
+      background: #010409;
+      border-bottom: 1px solid #21262d;
+      padding: 10px 24px;
+      display: flex;
+      gap: 28px;
+      overflow-x: auto;
+      animation: fadeUp 0.5s ease 0.45s both;
+    }
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #484f58;
+      white-space: nowrap;
+      font-family: monospace;
+    }
+    .stat strong { color: #3fb950; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease 0.5s both;
+    }
+    .section-header h2 {
+      font-size: 11px;
+      font-weight: 500;
+      color: #484f58;
+      font-family: monospace;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+    .section-line { flex: 1; height: 1px; background: #21262d; }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+    .card:nth-child(1) { animation-delay: 0.55s; }
+    .card:nth-child(2) { animation-delay: 0.65s; }
+    .card:nth-child(3) { animation-delay: 0.75s; }
+    .card:hover { border-color: #58a6ff; transform: translateY(-2px); }
+
+    .card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+    .card.cypress .card-accent { background: linear-gradient(90deg, #3fb950, #239a3b); }
+    .card.jenkins .card-accent { background: linear-gradient(90deg, #f85149, #b91c1c); }
+    .card.tuleapp .card-accent { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
+
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .card-label {
+      font-size: 10px;
+      font-family: monospace;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .card h3 { font-size: 14px; font-weight: 500; color: #58a6ff; }
+    .card-icon { font-size: 22px; color: #30363d; }
+
+    .card p {
+      font-size: 12px;
+      color: #8b949e;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      padding: 10px 0;
+      border-top: 1px solid #21262d;
+      border-bottom: 1px solid #21262d;
+    }
+    .meta-item { font-size: 10px; font-family: monospace; color: #484f58; }
+    .meta-item strong { display: block; color: #8b949e; font-size: 11px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+    .tag {
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 10px;
+      color: #8b949e;
+      font-family: monospace;
+    }
+
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-link {
+      font-size: 11px;
+      color: #3fb950;
+      font-family: monospace;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s;
+    }
+    .card-link:hover { color: #58a6ff; }
+    .branch-badge {
+      font-size: 10px;
+      font-family: monospace;
+      color: #484f58;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+
+    .about-box {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      animation: fadeUp 0.5s ease 0.8s both;
+    }
+    .about-item { font-size: 12px; font-family: monospace; }
+    .about-item .label { color: #484f58; margin-bottom: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .about-item .value { color: #c9d1d9; }
+
+    .contact-section {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease 0.9s both;
+    }
+    .contact-btn {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 9px 16px;
+      font-size: 11px;
+      color: #8b949e;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .contact-btn:hover { border-color: #58a6ff; color: #58a6ff; }
+
+    footer {
+      border-top: 1px solid #21262d;
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 10px;
+      color: #484f58;
+      font-family: monospace;
+      animation: fadeUp 0.5s ease 1s both;
+    }
+    footer span { color: #3fb950; }
   </style>
 </head>
 <body>
 
+<div class="topbar">
+  <div class="topbar-dots">
+    <span class="d-red"></span>
+    <span class="d-yellow"></span>
+    <span class="d-green"></span>
+  </div>
+  <span class="path">~/ryaty1-RM/portafolio/index.html</span>
+  <span class="branch">&#8863; main ✓ committed</span>
+</div>
+
 <header>
-  <h1>Ramiro Gabriel Yat Yat</h1>
-  <p>Estudiante de Ingeniería en Sistemas · QA Automation · DevSecOps</p>
-  <p style="font-size:0.9rem; margin-top:5px; color:#8b949e;">Universidad Mariano Gálvez de Guatemala · Cobán, Alta Verapaz</p>
-  <div class="badges">
-    <img src="https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
-    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white"/>
+  <div class="grid-bg"></div>
+  <div class="scanline"></div>
+  <div class="header-content">
+    <div class="terminal-line">
+      <span class="prompt">ramiro@portfolio:~$</span>
+      <span> cat about.md</span>
+    </div>
+    <h1>Ramiro Gabriel Yat Yat<span class="cursor"></span></h1>
+    <div class="role">// QA Automation Engineer · DevSecOps · Sistemas de Información</div>
+    <div class="location"># Universidad Mariano Gálvez de Guatemala · Cobán, Alta Verapaz</div>
+    <div class="badges">
+      <div class="badge"><div class="dot dot-green"></div>Cypress</div>
+      <div class="badge"><div class="dot dot-red"></div>Jenkins</div>
+      <div class="badge"><div class="dot dot-blue"></div>Docker</div>
+      <div class="badge"><div class="dot dot-orange"></div>JavaScript</div>
+      <div class="badge"><div class="dot dot-purple"></div>Python</div>
+      <div class="badge"><div class="dot dot-green"></div>Ubuntu Server</div>
+      <div class="badge"><div class="dot dot-blue"></div>GitHub Flow</div>
+      <div class="badge"><div class="dot dot-orange"></div>VirtualBox</div>
+    </div>
   </div>
 </header>
 
-<section>
-  <h2>Proyectos</h2>
-  <div class="projects">
+<div class="stats-bar">
+  <div class="stat"><strong>3</strong>&nbsp;proyectos</div>
+  <div class="stat"><strong>E2E</strong>&nbsp;testing</div>
+  <div class="stat"><strong>CI/CD</strong>&nbsp;pipelines</div>
+  <div class="stat"><strong>2</strong>&nbsp;branches / repo</div>
+  <div class="stat"><strong>MIT</strong>&nbsp;license</div>
+  <div class="stat"><strong>DevSecOps</strong>&nbsp;culture</div>
+</div>
 
-    <div class="card">
-      <h3>Cypress SauceDemo</h3>
-      <div class="tags">
-        <span class="tag">Cypress</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">E2E</span>
-      </div>
-      <p>Suite de pruebas automatizadas end-to-end para SauceDemo. Cubre login, flujo de compra completo y validaciones de error.</p>
-      <a href="https://github.com/ryaty1-RM/cypress-saucedemo" target="_blank">Ver repositorio</a>
-    </div>
-
-    <div class="card">
-      <h3>Jenkins DevSecOps Pipeline</h3>
-      <div class="tags">
-        <span class="tag">Jenkins</span>
-        <span class="tag">Docker</span>
-        <span class="tag">CI/CD</span>
-      </div>
-      <p>Jenkins Master en Docker sobre Ubuntu Server con nodos SSH y pipelines de integración continua.</p>
-      <a href="https://github.com/ryaty1-RM/jenkins-devsecops-pipeline" target="_blank">Ver repositorio</a>
-    </div>
-
-    <div class="card">
-      <h3>TuleApp QA Workflow</h3>
-      <div class="tags">
-        <span class="tag">TuleApp</span>
-        <span class="tag">QA</span>
-        <span class="tag">Gestión</span>
-      </div>
-      <p>Gestión de pruebas y trazabilidad de requisitos con TuleApp. Incluye templates de bug report y casos de prueba.</p>
-      <a href="https://github.com/ryaty1-RM/tuleapp-qa-workflow" target="_blank">Ver repositorio</a>
-    </div>
-
+<main>
+  <div class="section-header">
+    <h2>// proyectos</h2>
+    <div class="section-line"></div>
   </div>
-</section>
+
+  <div class="projects">
+    <div class="card cypress">
+      <div class="card-accent"></div>
+      <div class="card-header">
+        <div>
+          <div class="card-label">automatización · e2e</div>
+          <h3>cypress-saucedemo</h3>
+        </div>
+        <span class="card-icon">🧪</span>
+      </div>
+      <p>Suite de pruebas automatizadas end-to-end para SauceDemo. Cubre login con credenciales válidas e inválidas, flujo completo de compra y validaciones de mensajes de error.</p>
+      <div class="card-meta">
+        <div class="meta-item"><strong>Cypress</strong>framework</div>
+        <div class="meta-item"><strong>JavaScript</strong>lenguaje</div>
+        <div class="meta-item"><strong>2</strong>branches</div>
+      </div>
+      <div class="tags">
+        <span class="tag">cypress</span>
+        <span class="tag">javascript</span>
+        <span class="tag">e2e</span>
+        <span class="tag">qa</span>
+        <span class="tag">automation</span>
+      </div>
+      <div class="card-footer">
+        <a class="card-link" href="https://github.com/ryaty1-RM/cypress-saucedemo" target="_blank">&#128279; ver repositorio →</a>
+        <span class="branch-badge">&#8863; main</span>
+      </div>
+    </div>
+
+    <div class="card jenkins">
+      <div class="card-accent"></div>
+      <div class="card-header">
+        <div>
+          <div class="card-label">devsecops · ci/cd</div>
+          <h3>jenkins-devsecops-pipeline</h3>
+        </div>
+        <span class="card-icon">🖥️</span>
+      </div>
+      <p>Jenkins Master en Docker sobre Ubuntu Server (VirtualBox) con dos nodos esclavos SSH. Incluye 3 pipelines de CI/CD y limpieza automática programada los viernes.</p>
+      <div class="card-meta">
+        <div class="meta-item"><strong>Jenkins</strong>master</div>
+        <div class="meta-item"><strong>Docker</strong>contenedor</div>
+        <div class="meta-item"><strong>2</strong>nodos SSH</div>
+      </div>
+      <div class="tags">
+        <span class="tag">jenkins</span>
+        <span class="tag">docker</span>
+        <span class="tag">ci-cd</span>
+        <span class="tag">devops</span>
+        <span class="tag">ubuntu</span>
+      </div>
+      <div class="card-footer">
+        <a class="card-link" href="https://github.com/ryaty1-RM/jenkins-devsecops-pipeline" target="_blank">&#128279; ver repositorio →</a>
+        <span class="branch-badge">&#8863; main</span>
+      </div>
+    </div>
+
+    <div class="card tuleapp">
+      <div class="card-accent"></div>
+      <div class="card-header">
+        <div>
+          <div class="card-label">gestión · qa</div>
+          <h3>tuleapp-qa-workflow</h3>
+        </div>
+        <span class="card-icon">📋</span>
+      </div>
+      <p>Gestión de pruebas y trazabilidad de requisitos con TuleApp. Incluye tablero kanban, plan de pruebas, templates de bug report y casos de prueba documentados.</p>
+      <div class="card-meta">
+        <div class="meta-item"><strong>TuleApp</strong>plataforma</div>
+        <div class="meta-item"><strong>Kanban</strong>metodología</div>
+        <div class="meta-item"><strong>2</strong>branches</div>
+      </div>
+      <div class="tags">
+        <span class="tag">tuleapp</span>
+        <span class="tag">qa</span>
+        <span class="tag">testing</span>
+        <span class="tag">gestión</span>
+      </div>
+      <div class="card-footer">
+        <a class="card-link" href="https://github.com/ryaty1-RM/tuleapp-qa-workflow" target="_blank">&#128279; ver repositorio →</a>
+        <span class="branch-badge">&#8863; main</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>// sobre mí</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="about-box">
+    <div class="about-item">
+      <div class="label">universidad</div>
+      <div class="value">Universidad Mariano Gálvez de Guatemala</div>
+    </div>
+    <div class="about-item">
+      <div class="label">carrera</div>
+      <div class="value">Ing. Sistemas de Información y Ciencias de la Computación</div>
+    </div>
+    <div class="about-item">
+      <div class="label">especialidad</div>
+      <div class="value">QA Automation · DevSecOps · CI/CD</div>
+    </div>
+    <div class="about-item">
+      <div class="label">ubicación</div>
+      <div class="value">Cobán, Alta Verapaz, Guatemala</div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>// contacto</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-section">
+    <a class="contact-btn" href="mailto:ryaty1@miumg.edu.gt">&#128140; ryaty1@miumg.edu.gt</a>
+    <a class="contact-btn" href="https://github.com/ryaty1-RM" target="_blank">&#128008; github.com/ryaty1-RM</a>
+    <a class="contact-btn" href="https://linkedin.com/in/TU-USUARIO" target="_blank">&#128101; LinkedIn</a>
+  </div>
+</main>
 
 <footer>
-  <p>Ramiro Gabriel Yat Yat</p>
-  <div class="contact">
-    <a href="mailto:ryaty1@miumg.edu.gt">ryaty1@miumg.edu.gt</a>
-    <a href="https://github.com/ryaty1-RM" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/Ramiro Yat Yat" target="_blank">LinkedIn</a>
-  </div>
+  Ramiro Gabriel Yat Yat · <span>ryaty1-rm.github.io</span> · 2026
 </footer>
 
 </body>
