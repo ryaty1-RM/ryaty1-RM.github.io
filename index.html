@@ -6,329 +6,191 @@
   <title>Ramiro Gabriel Yat Yat | Portafolio</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; } 50% { opacity: 0; }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', sans-serif; }
 
     .topbar {
-      background: #010409;
-      border-bottom: 1px solid #21262d;
-      padding: 8px 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: monospace;
-      font-size: 11px;
-      color: #484f58;
+      background: #010409; border-bottom: 1px solid #21262d;
+      padding: 8px 24px; display: flex; align-items: center; gap: 12px;
+      font-family: monospace; font-size: 11px; color: #484f58;
       animation: fadeUp 0.4s ease both;
     }
     .topbar-dots { display: flex; gap: 6px; }
     .topbar-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .d-red { background: #f85149; }
-    .d-yellow { background: #d29922; }
-    .d-green { background: #3fb950; }
+    .d-red { background: #f85149; } .d-yellow { background: #d29922; } .d-green { background: #3fb950; }
     .topbar .path { color: #58a6ff; margin-left: 8px; }
     .topbar .branch { margin-left: auto; color: #3fb950; }
 
     header {
-      background: #0d1117;
-      padding: 52px 24px 44px;
-      border-bottom: 1px solid #21262d;
-      position: relative;
-      overflow: hidden;
+      background: #0d1117; padding: 52px 0 44px;
+      border-bottom: 1px solid #21262d; position: relative; overflow: hidden;
     }
     .grid-bg {
       position: absolute; inset: 0;
       background-image: linear-gradient(#21262d 1px, transparent 1px), linear-gradient(90deg, #21262d 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.25;
+      background-size: 40px 40px; opacity: 0.25;
     }
     .scanline {
       position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(transparent 50%, #58a6ff04 50%);
-      background-size: 100% 4px;
-      opacity: 0.4;
+      background-size: 100% 4px; opacity: 0.4;
     }
-    .header-content { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+    .side-deco {
+      position: absolute; top: 0; bottom: 0; width: 48px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 6px; z-index: 2;
+    }
+    .side-deco.left { left: 0; border-right: 1px solid #21262d; }
+    .side-deco.right { right: 0; border-left: 1px solid #21262d; }
+    .side-dot { width: 5px; height: 5px; border-radius: 50%; background: #21262d; }
+    .side-dot.active-green { background: #3fb950; box-shadow: 0 0 6px #3fb95066; }
+    .side-dot.active-blue { background: #58a6ff; box-shadow: 0 0 6px #58a6ff66; }
+    .side-dot.active-red { background: #f85149; box-shadow: 0 0 6px #f8514966; }
+    .side-line { width: 1px; height: 40px; background: #21262d; }
+    .side-label {
+      font-family: monospace; font-size: 9px; color: #30363d;
+      writing-mode: vertical-rl; letter-spacing: 2px; text-transform: uppercase;
+    }
 
-    .terminal-line {
-      font-family: monospace;
-      font-size: 12px;
-      color: #484f58;
-      margin-bottom: 6px;
-      animation: fadeUp 0.5s ease 0.1s both;
-    }
+    .header-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .terminal-line { font-family: monospace; font-size: 12px; color: #484f58; margin-bottom: 6px; animation: fadeUp 0.5s ease 0.1s both; }
     .terminal-line .prompt { color: #3fb950; }
+    .header-content h1 { font-size: 32px; font-weight: 600; color: #e6edf3; letter-spacing: -0.5px; animation: fadeUp 0.5s ease 0.2s both; }
+    .cursor { display: inline-block; width: 3px; height: 28px; background: #58a6ff; margin-left: 4px; vertical-align: middle; animation: blink 1s step-end infinite; }
+    .role { font-family: monospace; font-size: 13px; color: #58a6ff; margin-top: 8px; animation: fadeUp 0.5s ease 0.3s both; }
+    .location { font-family: monospace; font-size: 11px; color: #484f58; margin-top: 4px; animation: fadeUp 0.5s ease 0.35s both; }
 
-    .header-content h1 {
-      font-size: 32px;
-      font-weight: 600;
-      color: #e6edf3;
-      letter-spacing: -0.5px;
-      animation: fadeUp 0.5s ease 0.2s both;
-    }
-    .cursor {
-      display: inline-block;
-      width: 3px;
-      height: 28px;
-      background: #58a6ff;
-      margin-left: 4px;
-      vertical-align: middle;
-      animation: blink 1s step-end infinite;
-    }
-    .role {
-      font-family: monospace;
-      font-size: 13px;
-      color: #58a6ff;
-      margin-top: 8px;
-      animation: fadeUp 0.5s ease 0.3s both;
-    }
-    .location {
-      font-family: monospace;
-      font-size: 11px;
-      color: #484f58;
-      margin-top: 4px;
-      animation: fadeUp 0.5s ease 0.35s both;
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 22px;
-      animation: fadeUp 0.5s ease 0.4s both;
-    }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; animation: fadeUp 0.5s ease 0.4s both; }
     .badge {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 4px;
-      padding: 5px 10px;
-      font-size: 11px;
-      color: #8b949e;
-      font-family: monospace;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: border-color 0.2s, color 0.2s;
+      background: #161b22; border: 1px solid #30363d; border-radius: 4px;
+      padding: 5px 10px; font-size: 11px; color: #8b949e; font-family: monospace;
+      display: flex; align-items: center; gap: 6px; transition: border-color 0.2s, color 0.2s;
     }
     .badge:hover { border-color: #58a6ff; color: #e6edf3; }
     .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .dot-green { background: #3fb950; }
-    .dot-blue { background: #58a6ff; }
-    .dot-orange { background: #d29922; }
-    .dot-purple { background: #bc8cff; }
-    .dot-red { background: #f85149; }
+    .dot-green { background: #3fb950; } .dot-blue { background: #58a6ff; }
+    .dot-orange { background: #d29922; } .dot-purple { background: #bc8cff; } .dot-red { background: #f85149; }
 
     .stats-bar {
-      background: #010409;
-      border-bottom: 1px solid #21262d;
-      padding: 10px 24px;
-      display: flex;
-      gap: 28px;
-      overflow-x: auto;
-      animation: fadeUp 0.5s ease 0.45s both;
+      background: #010409; border-bottom: 1px solid #21262d;
+      padding: 12px 24px; display: flex; justify-content: center;
+      gap: 0; animation: fadeUp 0.5s ease 0.45s both; flex-wrap: wrap;
     }
     .stat {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: #484f58;
-      white-space: nowrap;
-      font-family: monospace;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: #484f58; font-family: monospace;
+      padding: 0 20px; border-right: 1px solid #21262d;
     }
+    .stat:last-child { border-right: none; }
     .stat strong { color: #3fb950; }
 
-    main { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
+    .page-layout { display: grid; grid-template-columns: 48px 1fr 48px; }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      animation: fadeUp 0.5s ease 0.5s both;
+    .sidebar {
+      background: #010409;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 0; gap: 8px;
     }
-    .section-header h2 {
-      font-size: 11px;
-      font-weight: 500;
-      color: #484f58;
-      font-family: monospace;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      white-space: nowrap;
+    .sidebar.left { border-right: 1px solid #21262d; }
+    .sidebar.right { border-left: 1px solid #21262d; }
+    .sb-dot { width: 5px; height: 5px; border-radius: 50%; background: #21262d; }
+    .sb-dot.g { background: #3fb950; box-shadow: 0 0 5px #3fb95055; }
+    .sb-dot.b { background: #58a6ff; box-shadow: 0 0 5px #58a6ff55; }
+    .sb-dot.r { background: #f85149; box-shadow: 0 0 5px #f8514955; }
+    .sb-line { width: 1px; height: 32px; background: #21262d; }
+    .sb-label {
+      font-family: monospace; font-size: 9px; color: #30363d;
+      writing-mode: vertical-rl; letter-spacing: 2px; text-transform: uppercase;
+      margin: 8px 0;
     }
+    .sb-bracket { font-family: monospace; font-size: 18px; color: #21262d; line-height: 1; }
+
+    main { max-width: 760px; margin: 0 auto; padding: 32px 24px; width: 100%; }
+
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; animation: fadeUp 0.5s ease 0.5s both; }
+    .section-header h2 { font-size: 11px; font-weight: 500; color: #484f58; font-family: monospace; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
     .section-line { flex: 1; height: 1px; background: #21262d; }
 
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-bottom: 40px;
-    }
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 40px; }
 
     .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
-      animation: fadeUp 0.5s ease both;
+      background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+      padding: 20px; position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s; animation: fadeUp 0.5s ease both;
     }
     .card:nth-child(1) { animation-delay: 0.55s; }
     .card:nth-child(2) { animation-delay: 0.65s; }
     .card:nth-child(3) { animation-delay: 0.75s; }
     .card:hover { border-color: #58a6ff; transform: translateY(-2px); }
-
     .card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
     .card.cypress .card-accent { background: linear-gradient(90deg, #3fb950, #239a3b); }
     .card.jenkins .card-accent { background: linear-gradient(90deg, #f85149, #b91c1c); }
     .card.tuleapp .card-accent { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
 
     .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-    .card-label {
-      font-size: 10px;
-      font-family: monospace;
-      color: #484f58;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
+    .card-label { font-size: 10px; font-family: monospace; color: #484f58; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
     .card h3 { font-size: 14px; font-weight: 500; color: #58a6ff; }
-    .card-icon { font-size: 22px; color: #30363d; }
-
-    .card p {
-      font-size: 12px;
-      color: #8b949e;
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-
-    .card-meta {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 14px;
-      padding: 10px 0;
-      border-top: 1px solid #21262d;
-      border-bottom: 1px solid #21262d;
-    }
+    .card-icon { font-size: 20px; }
+    .card p { font-size: 12px; color: #8b949e; line-height: 1.65; margin-bottom: 14px; }
+    .card-meta { display: flex; gap: 16px; margin-bottom: 14px; padding: 10px 0; border-top: 1px solid #21262d; border-bottom: 1px solid #21262d; }
     .meta-item { font-size: 10px; font-family: monospace; color: #484f58; }
     .meta-item strong { display: block; color: #8b949e; font-size: 11px; }
-
     .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
-    .tag {
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      padding: 2px 8px;
-      font-size: 10px;
-      color: #8b949e;
-      font-family: monospace;
-    }
-
+    .tag { background: #21262d; border: 1px solid #30363d; border-radius: 20px; padding: 2px 8px; font-size: 10px; color: #8b949e; font-family: monospace; }
     .card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .card-link {
-      font-size: 11px;
-      color: #3fb950;
-      font-family: monospace;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: color 0.15s;
-    }
+    .card-link { font-size: 11px; color: #3fb950; font-family: monospace; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
     .card-link:hover { color: #58a6ff; }
-    .branch-badge {
-      font-size: 10px;
-      font-family: monospace;
-      color: #484f58;
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 4px;
-      padding: 2px 7px;
-    }
+    .branch-badge { font-size: 10px; font-family: monospace; color: #484f58; background: #21262d; border: 1px solid #30363d; border-radius: 4px; padding: 2px 7px; }
 
-    .about-box {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 40px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      animation: fadeUp 0.5s ease 0.8s both;
-    }
+    .about-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; animation: fadeUp 0.5s ease 0.8s both; }
     .about-item { font-size: 12px; font-family: monospace; }
     .about-item .label { color: #484f58; margin-bottom: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
     .about-item .value { color: #c9d1d9; }
 
-    .contact-section {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      animation: fadeUp 0.5s ease 0.9s both;
-    }
-    .contact-btn {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      padding: 9px 16px;
-      font-size: 11px;
-      color: #8b949e;
-      font-family: monospace;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: border-color 0.15s, color 0.15s;
-    }
+    .contact-section { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; animation: fadeUp 0.5s ease 0.9s both; }
+    .contact-btn { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 9px 16px; font-size: 11px; color: #8b949e; font-family: monospace; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: border-color 0.15s, color 0.15s; }
     .contact-btn:hover { border-color: #58a6ff; color: #58a6ff; }
 
-    footer {
-      border-top: 1px solid #21262d;
-      padding: 16px 24px;
-      text-align: center;
-      font-size: 10px;
-      color: #484f58;
-      font-family: monospace;
-      animation: fadeUp 0.5s ease 1s both;
-    }
+    footer { border-top: 1px solid #21262d; padding: 16px 24px; text-align: center; font-size: 10px; color: #484f58; font-family: monospace; animation: fadeUp 0.5s ease 1s both; }
     footer span { color: #3fb950; }
   </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="topbar-dots">
-    <span class="d-red"></span>
-    <span class="d-yellow"></span>
-    <span class="d-green"></span>
-  </div>
+  <div class="topbar-dots"><span class="d-red"></span><span class="d-yellow"></span><span class="d-green"></span></div>
   <span class="path">~/ryaty1-RM/portafolio/index.html</span>
-  <span class="branch">&#8863; main ✓ committed</span>
+  <span class="branch">&#8863; main &#10003; committed</span>
 </div>
 
 <header>
   <div class="grid-bg"></div>
   <div class="scanline"></div>
+  <div class="side-deco left">
+    <div class="side-dot active-green"></div>
+    <div class="side-line"></div>
+    <div class="side-dot"></div>
+    <div class="side-label">portfolio</div>
+    <div class="side-dot"></div>
+    <div class="side-line"></div>
+    <div class="side-dot active-blue"></div>
+  </div>
+  <div class="side-deco right">
+    <div class="side-dot active-red"></div>
+    <div class="side-line"></div>
+    <div class="side-dot"></div>
+    <div class="side-label">v2026</div>
+    <div class="side-dot"></div>
+    <div class="side-line"></div>
+    <div class="side-dot active-green"></div>
+  </div>
   <div class="header-content">
-    <div class="terminal-line">
-      <span class="prompt">ramiro@portfolio:~$</span>
-      <span> cat about.md</span>
-    </div>
+    <div class="terminal-line"><span class="prompt">ramiro@portfolio:~$</span><span> cat about.md</span></div>
     <h1>Ramiro Gabriel Yat Yat<span class="cursor"></span></h1>
-    <div class="role">// QA Automation Engineer · DevSecOps · Sistemas de Información</div>
-    <div class="location"># Universidad Mariano Gálvez de Guatemala · Cobán, Alta Verapaz</div>
+    <div class="role">// QA Automation Engineer &middot; DevSecOps &middot; Sistemas de Informaci&oacute;n</div>
+    <div class="location"># Universidad Mariano G&aacute;lvez de Guatemala &middot; Cob&aacute;n, Alta Verapaz</div>
     <div class="badges">
       <div class="badge"><div class="dot dot-green"></div>Cypress</div>
       <div class="badge"><div class="dot dot-red"></div>Jenkins</div>
@@ -351,136 +213,130 @@
   <div class="stat"><strong>DevSecOps</strong>&nbsp;culture</div>
 </div>
 
-<main>
-  <div class="section-header">
-    <h2>// proyectos</h2>
-    <div class="section-line"></div>
+<div class="page-layout">
+  <div class="sidebar left">
+    <div class="sb-bracket">{</div>
+    <div class="sb-line"></div>
+    <div class="sb-dot g"></div>
+    <div class="sb-dot"></div>
+    <div class="sb-dot b"></div>
+    <div class="sb-line"></div>
+    <div class="sb-label">ryaty1-rm</div>
+    <div class="sb-line"></div>
+    <div class="sb-dot"></div>
+    <div class="sb-dot r"></div>
+    <div class="sb-dot"></div>
+    <div class="sb-line"></div>
+    <div class="sb-bracket">}</div>
   </div>
 
-  <div class="projects">
-    <div class="card cypress">
-      <div class="card-accent"></div>
-      <div class="card-header">
-        <div>
-          <div class="card-label">automatización · e2e</div>
-          <h3>cypress-saucedemo</h3>
+  <main>
+    <div class="section-header">
+      <h2>// proyectos</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects">
+      <div class="card cypress">
+        <div class="card-accent"></div>
+        <div class="card-header">
+          <div><div class="card-label">automatizaci&oacute;n &middot; e2e</div><h3>cypress-saucedemo</h3></div>
+          <span class="card-icon">&#129514;</span>
         </div>
-        <span class="card-icon">🧪</span>
-      </div>
-      <p>Suite de pruebas automatizadas end-to-end para SauceDemo. Cubre login con credenciales válidas e inválidas, flujo completo de compra y validaciones de mensajes de error.</p>
-      <div class="card-meta">
-        <div class="meta-item"><strong>Cypress</strong>framework</div>
-        <div class="meta-item"><strong>JavaScript</strong>lenguaje</div>
-        <div class="meta-item"><strong>2</strong>branches</div>
-      </div>
-      <div class="tags">
-        <span class="tag">cypress</span>
-        <span class="tag">javascript</span>
-        <span class="tag">e2e</span>
-        <span class="tag">qa</span>
-        <span class="tag">automation</span>
-      </div>
-      <div class="card-footer">
-        <a class="card-link" href="https://github.com/ryaty1-RM/cypress-saucedemo" target="_blank">&#128279; ver repositorio →</a>
-        <span class="branch-badge">&#8863; main</span>
-      </div>
-    </div>
-
-    <div class="card jenkins">
-      <div class="card-accent"></div>
-      <div class="card-header">
-        <div>
-          <div class="card-label">devsecops · ci/cd</div>
-          <h3>jenkins-devsecops-pipeline</h3>
+        <p>Suite de pruebas automatizadas end-to-end para SauceDemo. Cubre login con credenciales v&aacute;lidas e inv&aacute;lidas, flujo completo de compra y validaciones de mensajes de error.</p>
+        <div class="card-meta">
+          <div class="meta-item"><strong>Cypress</strong>framework</div>
+          <div class="meta-item"><strong>JavaScript</strong>lenguaje</div>
+          <div class="meta-item"><strong>2</strong>branches</div>
         </div>
-        <span class="card-icon">🖥️</span>
-      </div>
-      <p>Jenkins Master en Docker sobre Ubuntu Server (VirtualBox) con dos nodos esclavos SSH. Incluye 3 pipelines de CI/CD y limpieza automática programada los viernes.</p>
-      <div class="card-meta">
-        <div class="meta-item"><strong>Jenkins</strong>master</div>
-        <div class="meta-item"><strong>Docker</strong>contenedor</div>
-        <div class="meta-item"><strong>2</strong>nodos SSH</div>
-      </div>
-      <div class="tags">
-        <span class="tag">jenkins</span>
-        <span class="tag">docker</span>
-        <span class="tag">ci-cd</span>
-        <span class="tag">devops</span>
-        <span class="tag">ubuntu</span>
-      </div>
-      <div class="card-footer">
-        <a class="card-link" href="https://github.com/ryaty1-RM/jenkins-devsecops-pipeline" target="_blank">&#128279; ver repositorio →</a>
-        <span class="branch-badge">&#8863; main</span>
-      </div>
-    </div>
-
-    <div class="card tuleapp">
-      <div class="card-accent"></div>
-      <div class="card-header">
-        <div>
-          <div class="card-label">gestión · qa</div>
-          <h3>tuleapp-qa-workflow</h3>
+        <div class="tags"><span class="tag">cypress</span><span class="tag">javascript</span><span class="tag">e2e</span><span class="tag">qa</span><span class="tag">automation</span></div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/ryaty1-RM/cypress-saucedemo" target="_blank">ver repositorio &rarr;</a>
+          <span class="branch-badge">&#8863; main</span>
         </div>
-        <span class="card-icon">📋</span>
       </div>
-      <p>Gestión de pruebas y trazabilidad de requisitos con TuleApp. Incluye tablero kanban, plan de pruebas, templates de bug report y casos de prueba documentados.</p>
-      <div class="card-meta">
-        <div class="meta-item"><strong>TuleApp</strong>plataforma</div>
-        <div class="meta-item"><strong>Kanban</strong>metodología</div>
-        <div class="meta-item"><strong>2</strong>branches</div>
+
+      <div class="card jenkins">
+        <div class="card-accent"></div>
+        <div class="card-header">
+          <div><div class="card-label">devsecops &middot; ci/cd</div><h3>jenkins-devsecops-pipeline</h3></div>
+          <span class="card-icon">&#128421;</span>
+        </div>
+        <p>Jenkins Master en Docker sobre Ubuntu Server (VirtualBox) con dos nodos esclavos SSH. Incluye 3 pipelines de CI/CD y limpieza autom&aacute;tica programada los viernes.</p>
+        <div class="card-meta">
+          <div class="meta-item"><strong>Jenkins</strong>master</div>
+          <div class="meta-item"><strong>Docker</strong>contenedor</div>
+          <div class="meta-item"><strong>2</strong>nodos SSH</div>
+        </div>
+        <div class="tags"><span class="tag">jenkins</span><span class="tag">docker</span><span class="tag">ci-cd</span><span class="tag">devops</span><span class="tag">ubuntu</span></div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/ryaty1-RM/jenkins-devsecops-pipeline" target="_blank">ver repositorio &rarr;</a>
+          <span class="branch-badge">&#8863; main</span>
+        </div>
       </div>
-      <div class="tags">
-        <span class="tag">tuleapp</span>
-        <span class="tag">qa</span>
-        <span class="tag">testing</span>
-        <span class="tag">gestión</span>
+
+      <div class="card tuleapp">
+        <div class="card-accent"></div>
+        <div class="card-header">
+          <div><div class="card-label">gesti&oacute;n &middot; qa</div><h3>tuleapp-qa-workflow</h3></div>
+          <span class="card-icon">&#128203;</span>
+        </div>
+        <p>Gesti&oacute;n de pruebas y trazabilidad de requisitos con TuleApp. Incluye tablero kanban, plan de pruebas, templates de bug report y casos de prueba documentados.</p>
+        <div class="card-meta">
+          <div class="meta-item"><strong>TuleApp</strong>plataforma</div>
+          <div class="meta-item"><strong>Kanban</strong>metodolog&iacute;a</div>
+          <div class="meta-item"><strong>2</strong>branches</div>
+        </div>
+        <div class="tags"><span class="tag">tuleapp</span><span class="tag">qa</span><span class="tag">testing</span><span class="tag">gesti&oacute;n</span></div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/ryaty1-RM/tuleapp-qa-workflow" target="_blank">ver repositorio &rarr;</a>
+          <span class="branch-badge">&#8863; main</span>
+        </div>
       </div>
-      <div class="card-footer">
-        <a class="card-link" href="https://github.com/ryaty1-RM/tuleapp-qa-workflow" target="_blank">&#128279; ver repositorio →</a>
-        <span class="branch-badge">&#8863; main</span>
-      </div>
     </div>
-  </div>
 
-  <div class="section-header">
-    <h2>// sobre mí</h2>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="about-box">
-    <div class="about-item">
-      <div class="label">universidad</div>
-      <div class="value">Universidad Mariano Gálvez de Guatemala</div>
+    <div class="section-header">
+      <h2>// sobre m&iacute;</h2>
+      <div class="section-line"></div>
     </div>
-    <div class="about-item">
-      <div class="label">carrera</div>
-      <div class="value">Ing. Sistemas de Información y Ciencias de la Computación</div>
-    </div>
-    <div class="about-item">
-      <div class="label">especialidad</div>
-      <div class="value">QA Automation · DevSecOps · CI/CD</div>
-    </div>
-    <div class="about-item">
-      <div class="label">ubicación</div>
-      <div class="value">Cobán, Alta Verapaz, Guatemala</div>
-    </div>
-  </div>
 
-  <div class="section-header">
-    <h2>// contacto</h2>
-    <div class="section-line"></div>
-  </div>
+    <div class="about-box">
+      <div class="about-item"><div class="label">universidad</div><div class="value">Universidad Mariano G&aacute;lvez de Guatemala</div></div>
+      <div class="about-item"><div class="label">carrera</div><div class="value">Ing. Sistemas de Informaci&oacute;n y Ciencias de la Computaci&oacute;n</div></div>
+      <div class="about-item"><div class="label">especialidad</div><div class="value">QA Automation &middot; DevSecOps &middot; CI/CD</div></div>
+      <div class="about-item"><div class="label">ubicaci&oacute;n</div><div class="value">Cob&aacute;n, Alta Verapaz, Guatemala</div></div>
+    </div>
 
-  <div class="contact-section">
-    <a class="contact-btn" href="mailto:ryaty1@miumg.edu.gt">&#128140; ryaty1@miumg.edu.gt</a>
-    <a class="contact-btn" href="https://github.com/ryaty1-RM" target="_blank">&#128008; github.com/ryaty1-RM</a>
-    <a class="contact-btn" href="https://linkedin.com/in/Ramiro Yat Yat" target="_blank">&#128101; LinkedIn</a>
-  </div>
-</main>
+    <div class="section-header">
+      <h2>// contacto</h2>
+      <div class="section-line"></div>
+    </div>
 
-<footer>
-  Ramiro Gabriel Yat Yat · <span>ryaty1-rm.github.io</span> · 2026
-</footer>
+    <div class="contact-section">
+      <a class="contact-btn" href="mailto:ryaty1@miumg.edu.gt">&#9993; ryaty1@miumg.edu.gt</a>
+      <a class="contact-btn" href="https://github.com/ryaty1-RM" target="_blank">&#128008; github.com/ryaty1-RM</a>
+      <a class="contact-btn" href="https://linkedin.com/in/Ramiro Yat Yat" target="_blank">&#8599; LinkedIn</a>
+    </div>
+  </main>
+
+  <div class="sidebar right">
+    <div class="sb-bracket">[</div>
+    <div class="sb-line"></div>
+    <div class="sb-dot b"></div>
+    <div class="sb-dot"></div>
+    <div class="sb-dot g"></div>
+    <div class="sb-line"></div>
+    <div class="sb-label">2026</div>
+    <div class="sb-line"></div>
+    <div class="sb-dot"></div>
+    <div class="sb-dot r"></div>
+    <div class="sb-dot"></div>
+    <div class="sb-line"></div>
+    <div class="sb-bracket">]</div>
+  </div>
+</div>
+
+<footer>Ramiro Gabriel Yat Yat &middot; <span>ryaty1-rm.github.io</span> &middot; 2026</footer>
 
 </body>
 </html>
